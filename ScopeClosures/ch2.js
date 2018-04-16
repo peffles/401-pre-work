@@ -1,4 +1,4 @@
-
+// You Don't Know JS: Scope & Closures: Chapter 2
 // Example 1:
 function foo(a) {
 
