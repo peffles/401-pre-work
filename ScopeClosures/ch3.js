@@ -1,7 +1,7 @@
 // You Don't Know JS: Scope & Closures: Chapter 3
 // Example 1
 function foo(a) {
-  var b = 2;
+  let b = 2;
 
   // some code
 
@@ -11,7 +11,7 @@ function foo(a) {
 
   // MOAR CODE!!!
 
-  var c = 3;
+  let c = 3;
 }
 bar(); // fails
 
@@ -27,7 +27,7 @@ function doSomethingElse(a) {
   return a - 1;
 }
 
-var b;
+let b;
 
 doSomething(2);
 // Better example:
@@ -36,7 +36,7 @@ function doSomething(a) {
     return a - 1;
   }
 
-  var b;
+  let b;
 
   b = a + doSomethingElse(a * 2);
 
@@ -48,18 +48,18 @@ doSomething( 2 );
 // Collision Aviodance Example:
 function foo() {
   function bar(a) {
-    i = 3; // changing the 'i' in the enclosing scope's for-loop
+    i = 3;
     console.log(a + i);
   }
 
-  for (var i=0; i<10; i++) {
+  for (let i=0; i<10; i++) {
     bar(i * 2); // infinite loop
   }
 }
 
 foo();
 
-var MyReallyCoolLibrary = {
+let MyReallyCoolLibrary = {
   awesome: 'stuff',
   doSomething: function() {
   // ...
@@ -69,23 +69,23 @@ var MyReallyCoolLibrary = {
   }
 };
 // Functions as Scopes Example:
-var a = 2;
+let a = 2;
 
 function foo() { // insert this
 
-  var a = 3;
+  let a = 3;
   console.log(a);
 
 } // and this
-foo(); // and this
+foo(); // this too
 
 console.log(a);
 // Better Example:
-var a = 2;
+let a = 2;
 
 (function foo(){ // insert this
 
-  var a = 3;
+  let a = 3;
   console.log( a );
 
 })(); // and this
@@ -102,11 +102,11 @@ setTimeout(function timeoutHandler(){ // I have a name
   console.log('I waited 1 second!');
 }, 1000);
 // Invoking Function Expressions Immediately
-var a = 2;
+let a = 2;
 
 (function foo(){
 
-  var a = 3;
+  let a = 3;
   console.log(a);
 
 })();
@@ -114,11 +114,11 @@ var a = 2;
 console.log(a);
 
 // IIFE Example
-var a = 2;
+let a = 2;
 
 (function IIFE(){
 
-  var a = 3;
+  let a = 3;
   console.log(a);
 
 })();
@@ -126,11 +126,11 @@ var a = 2;
 console.log(a);
 
 //Another IIFE
-var a = 2;
+let a = 2;
 
 (function IIFE(global){
 
-  var a = 3;
+  let a = 3;
   console.log(a);
   console.log(global.a);
 
@@ -142,33 +142,33 @@ undefined = true; // setting a land mine for other code
 
 (function IIFE(undefined){
 
-  var a;
+  let a;
   if (a === undefined) {
     console.log('Undefined is safe here!');
   }
 
 })();
 // Another IIFE Variation
-var a = 2;
+let a = 2;
 
 (function IIFE(def){
   def(window);
 })(function def(global){
 
-  var a = 3;
+  let a = 3;
   console.log(a);
   console.log(global.a);
 
 });
 
 //Blocks as Scopes
-for (var i=0; i<10; i++) {
+for (let i = 0; i< 10; i++) {
   console.log(i);
 }
-var foo = true;
+let foo = true;
 
 if (foo) {
-  var bar = foo * 2;
+  let bar = foo * 2;
   bar = something(bar);
   console.log(bar);
 }
@@ -184,7 +184,7 @@ catch (err) {
 console.log(err); // ReferenceError: 'err' not found
 
 // Let Example
-var foo = true;
+let foo = true;
 
 if (foo) {
   let bar = foo * 2;
@@ -195,7 +195,7 @@ if (foo) {
 console.log(bar); // ReferenceError
 
 // Explicit Block
-var foo = true;
+let foo = true;
 
 if (foo) {
   { // explicit block
@@ -218,13 +218,13 @@ function process(data) {
 	// do something
 }
 
-var someReallyBigData = {...};
+let someReallyBigData = bigData};
 
 process(someReallyBigData);
 
-var btn = document.getElementById('my_button');
+let btn = document.getElementById('my_button');
 
-btn.addEventListener('click', function click(evt){
+btn.addEventListener('click', function click(event){
 	console.log('button clicked');
 }, /*capturingPhase=*/false );
 
@@ -233,16 +233,15 @@ function process(data) {
 	// do something
 }
 
-// anything declared inside this block can go away after
 {
-	let someReallyBigData = {...};
+	let someReallyBigData = {bigData};
 
 	process(someReallyBigData);
 }
 
-var btn = document.getElementById('my_button');
+let btn = document.getElementById('my_button');
 
-btn.addEventListener('click', function click(evt){
+btn.addEventListener('click', function click(event){
 	console.log('button clicked');
 }, /*capturingPhase=*/false);
 
@@ -256,16 +255,16 @@ console.log(i); // ReferenceError
 // Another example
 {
 	let j;
-	for (j=0; j<10; j++) {
-		let i = j; // re bound for each iteration
+	for (j = 0; j < 10; j++) {
+		let i = j; // re bound each iteration
 		console.log(i);
 	}
 }
-//Code to refactor
-var foo = true, baz = 10;
+// Code to refactor
+let foo = true, baz = 10;
 
 if (foo) {
-	var bar = 3;
+	let bar = 3;
 
 	if (baz > bar) {
 		console.log(baz);
@@ -274,38 +273,38 @@ if (foo) {
 	// ...
 }
 // Refactor it now
-var foo = true, baz = 10;
-
-if (foo) {
-	var bar = 3;
-
-	// ...
-}
-// But, be careful of such changes when using block-scoped variables:
-if (baz > bar) {
-	console.log(baz);
-}
-var foo = true, baz = 10;
+let foo = true, baz = 10;
 
 if (foo) {
 	let bar = 3;
 
-	if (baz > bar) { // <-- don't forget 'bar' when moving!
-		console.log( baz );
+	// ...
+}
+// But, be careful of such changes when using block-scoped letiables:
+if (baz > bar) {
+	console.log(baz);
+}
+let foo = true, baz = 10;
+
+if (foo) {
+	let bar = 3;
+
+	if (baz > bar) {
+		console.log(baz);
 	}
 }
 
 //Const Example
-var foo = true;
+let foo = true;
 
 if (foo) {
-	var a = 2;
-	const b = 3; // block-scoped to the containing 'if'
+	let a = 2;
+	const b = 3;
 
-	a = 3; // fine
+	a = 3; // okay
 	b = 4; // error
 }
 
-console.log( a );
-console.log( b ); // ReferenceError!
+console.log(a);
+console.log(b); // ReferenceError!
 
