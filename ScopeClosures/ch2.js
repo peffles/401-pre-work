@@ -1,8 +1,9 @@
 // You Don't Know JS: Scope & Closures: Chapter 2
-// Example 1:
+
+
 function foo(a) {
 
-  var b = a * 2;
+  let b = a * 2;
 
   function bar(c) {
     console.log(a, b, c);
@@ -15,13 +16,13 @@ foo(2);
 
 // Example 2:
 function foo(str, a) {
-  eval(str); // cheated
+  eval(str);
   console.log(a, b);
 }
 
-var b = 2;
+let b = 2;
 
-foo('var b = 3;', 1);
+foo('let b = 3;', 1);
 
 // Example 3:
 function foo(str) {
@@ -29,9 +30,9 @@ function foo(str) {
   eval(str);
   console.log(a); // ReferenceError: a is not defined
 }
-foo('var a = 2');
+foo('let a = 2');
 // With Keyword Example 1:
-var obj = {
+let obj = {
 	a: 1,
 	b: 2,
 	c: 3
@@ -55,11 +56,11 @@ function foo(obj) {
 	}
 }
 
-var o1 = {
+let o1 = {
 	a: 3
 };
 
-var o2 = {
+let o2 = {
 	b: 3
 };
 
@@ -67,5 +68,5 @@ foo(o1);
 console.log(o1.a);
 
 foo(o2);
-console.log(o2.a); // undefined
-console.log(a); // 2
+console.log(o2.a);
+console.log(a); // Should equal 2
